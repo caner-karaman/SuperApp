@@ -8,50 +8,30 @@
  * @format
  */
 
-import React from 'react';
+import React, {FC} from 'react';
 import {
+  Dimensions,
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   useColorScheme,
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
-const Section: React.FC<{
+interface AppCardProps {
   title: string;
-}> = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
+}
+
+const AppCard: FC<AppCardProps> = ({title}) => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
+    <TouchableOpacity style={styles.menu}>
+      <Text style={styles.title}>{title}</Text>
+    </TouchableOpacity>
   );
 };
 
@@ -68,25 +48,9 @@ const App = () => {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+        <View style={styles.container}>
+          <AppCard title="First App" />
+          <AppCard title="Second App" />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -94,20 +58,24 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    height: Dimensions.get('window').height,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  menu: {
+    backgroundColor: '#c2c2c2',
+    height: 150,
+    width: '33%',
+    borderRadius: 12,
+    paddingTop: 20,
+    paddingHorizontal: 10,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
+  title: {
+    color: '#1b1b1b',
+    textAlign: 'center',
     fontWeight: '700',
   },
 });
